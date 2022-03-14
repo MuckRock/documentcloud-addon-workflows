@@ -1,0 +1,17 @@
+
+name: Update Config
+on:
+  workflow_call:
+    inputs:
+      url:
+        default: "https://api.www.documentcloud.org/api/"
+        required: false
+        type: string
+
+jobs:
+  Update-Config:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Notify DocumentCloud to update
+        run: curl -d "repository=${{ github.repository }}" -X POST "${{ inputs.url }}add_ons/update_config/"
