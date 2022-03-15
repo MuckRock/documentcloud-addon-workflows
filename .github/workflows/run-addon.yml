@@ -29,3 +29,6 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Run add-on
         run: python main.py '${{ toJSON(github.event.client_payload) }}'
+        env:
+          DC_USERNAME: ${{ secrets.DC_USERNAME }}
+          DC_PASSWORD: ${{ secrets.DC_PASSWORD }}
