@@ -9,7 +9,7 @@ on:
         type: number
       python-version:
         default: "3.10"
-        required": false
+        required: false
         type: string
 
 jobs:
