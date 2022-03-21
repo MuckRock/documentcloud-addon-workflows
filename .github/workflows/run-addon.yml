@@ -15,6 +15,11 @@ on:
         default: false
         required: false
         type: boolean
+    secrets:
+      dc_username:
+        required: false
+      dc_password:
+        required: false
 
 jobs:
   Run-Add-On:
@@ -34,8 +39,8 @@ jobs:
       - name: Run add-on
         run: python main.py '${{ toJSON(github.event.client_payload) }}'
         env:
-          DC_USERNAME: ${{ secrets.DC_USERNAME }}
-          DC_PASSWORD: ${{ secrets.DC_PASSWORD }}
+          DC_USERNAME: ${{ secrets.dc_username }}
+          DC_PASSWORD: ${{ secrets.dc_password }}
       - name: Commit and push if it changed
         if: inputs.git-commit
         run: |-
