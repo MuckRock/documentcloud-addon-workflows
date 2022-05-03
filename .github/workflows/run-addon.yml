@@ -20,6 +20,8 @@ on:
         required: false
       dc_password:
         required: false
+      token:
+        required: false
 
 jobs:
   Run-Add-On:
@@ -41,6 +43,7 @@ jobs:
         env:
           DC_USERNAME: ${{ secrets.dc_username }}
           DC_PASSWORD: ${{ secrets.dc_password }}
+          TOKEN: ${{ secrents.token }}
       - name: Commit and push if it changed
         if: inputs.git-commit
         run: |-
