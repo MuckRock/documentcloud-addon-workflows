@@ -43,7 +43,7 @@ jobs:
         env:
           DC_USERNAME: ${{ secrets.dc_username }}
           DC_PASSWORD: ${{ secrets.dc_password }}
-          TOKEN: ${{ secrents.token }}
+          TOKEN: ${{ secrets.token }}
       - name: Commit and push if it changed
         if: inputs.git-commit
         run: |-
