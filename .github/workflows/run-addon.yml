@@ -22,6 +22,8 @@ on:
         required: false
       token:
         required: false
+      key:
+       required: false
 
 jobs:
   Run-Add-On:
