@@ -55,8 +55,12 @@ jobs:
       - name: Mask Inputs 2
         run: |
           while IFS= read -r line; do
-            echo "::add-mask::$line"
+            echo "::add-mask::${line##*( )}"
           done <<< "${{toJSON(github.event.client_payload)}}"
+      - name: Mask Inputs 3
+        run: |
+          echo $GITHUB_EVENT_PATH
+          echo $(jq -r '.' $GITHUB_EVENT_PATH)
       - name: Run add-on
         run: python main.py '${{ toJSON(github.event.client_payload) }}'
         env:
