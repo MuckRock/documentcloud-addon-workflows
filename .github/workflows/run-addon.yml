@@ -50,6 +50,11 @@ jobs:
       - name: Mask Inputs 1
         run: |
           while IFS= read -r line; do
+            echo "$line"
+          done <<< "${{toJSON(github.event.client_payload)}}"
+      - name: Mask Inputs 2
+        run: |
+          while IFS= read -r line; do
             echo "::add-mask::$line"
           done <<< "${{toJSON(github.event.client_payload)}}"
       - name: Run add-on
