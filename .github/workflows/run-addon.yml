@@ -49,13 +49,11 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Mask Inputs 1
         run: |
-          echo 'SECRET<<EOF' >> $GITHUB_ENV
-          echo -e $(jq -r '.client_payload' $GITHUB_EVENT_PATH) >> $GITHUB_ENV
-          echo 'EOF' >> $GITHUB_ENV
+          SECRET=$(jq -r '.client_payload' $GITHUB_EVENT_PATH)
           while read -r line;
           do
             echo "::add-mask::${line}"
-          done <<< "${{ env.SECRET }}"
+          done <<< $SECRET
       - name: Run add-on
         run: python main.py '${{ toJSON(github.event.client_payload) }}'
         env:
