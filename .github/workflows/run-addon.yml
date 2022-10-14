@@ -48,11 +48,7 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Mask Inputs 1
-        run: echo "::add-mask::${{toJSON(github.event.client_payload)}}"
-      - name: Mask Inputs 2
-        run: echo "::add-mask::${{github.event.client_payload}}"
-      - name: Mask Inputs 3
-        run: echo "::add-mask::base_uri"
+        run: while IFS= read -r line; do; echo "::add-mask::$line" done <<< "${{toJSON(github.event.client_payload)}}"
       - name: Run add-on
         run: python main.py '${{ toJSON(github.event.client_payload) }}'
         env:
