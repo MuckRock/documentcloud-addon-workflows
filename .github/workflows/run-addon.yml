@@ -36,8 +36,8 @@ jobs:
     steps:
       - name: ${{ github.event.client_payload.id }}
         run: echo run identifier ${{ github.event.client_payload.id }}
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
         with:
           python-version: ${{ inputs.python-version }}
       - name: Install apt packages
