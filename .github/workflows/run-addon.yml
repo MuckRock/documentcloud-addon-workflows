@@ -42,7 +42,7 @@ jobs:
           python-version: ${{ inputs.python-version }}
       - name: Install apt packages
         if: inputs.apt-packages != ''
-        run: sudo apt-get -y install ${{ inputs.apt-packages }}
+        run: sudo apt-get update && sudo apt-get -y install ${{ inputs.apt-packages }}
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
