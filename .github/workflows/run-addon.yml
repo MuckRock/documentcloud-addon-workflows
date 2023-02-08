@@ -19,6 +19,10 @@ on:
         default: ""
         required: false
         type: string
+      mask-inputs:
+        default: false
+        required: false
+        type: boolean
     secrets:
       dc_username:
         required: false
@@ -48,6 +52,7 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Mask Inputs
+        if: inputs.mask-inputs
         run: |
           SECRET=$(jq -r '.client_payload' $GITHUB_EVENT_PATH)
           while read -r line;
