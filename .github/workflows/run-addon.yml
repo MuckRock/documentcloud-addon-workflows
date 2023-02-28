@@ -23,6 +23,10 @@ on:
         default: true
         required: false
         type: boolean
+      cache-soft-timeout:
+        default: false
+        required: false
+        type: boolean
     secrets:
       dc_username:
         required: false
@@ -77,3 +81,5 @@ jobs:
           timestamp=$(date -u)
           git commit -m "Latest data: ${timestamp}" || exit 0
           git push
+      - uses: actions/cache/save@v3
+        if: inputs.cache-soft-timeout
