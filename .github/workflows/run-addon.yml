@@ -23,6 +23,10 @@ on:
         default: true
         required: false
         type: boolean
+      lfs:
+        default: false
+        required: false
+        type: boolean
     secrets:
       dc_username:
         required: false
@@ -41,6 +45,9 @@ jobs:
       - name: ${{ github.event.client_payload.id }}
         run: echo run identifier ${{ github.event.client_payload.id }}
       - uses: actions/checkout@v3
+        if: !inputs.lfs
+      - uses: nschloe/action-cached-lfs-checkout@v1
+        if: inputs.lfs
       - uses: actions/setup-python@v4
         with:
           python-version: ${{ inputs.python-version }}
