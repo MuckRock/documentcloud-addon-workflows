@@ -65,6 +65,12 @@ jobs:
               echo "::add-mask::${line}"
             fi
           done <<< $SECRET
+      - name: Cache restore for soft timeout runs
+        uses: actions/cache/restore@v3
+        if: ${{ github.event.client_payload.payload.data._restore_key != null }}
+        with:
+          path: cache
+          key: ${{ github.event.client_payload.payload.data._restore_key }}
       - name: Run add-on
         run: python main.py '${{ toJSON(github.event.client_payload) }}'
         env:
@@ -81,5 +87,10 @@ jobs:
           timestamp=$(date -u)
           git commit -m "Latest data: ${timestamp}" || exit 0
           git push
-      - uses: actions/cache/save@v3
-        if: inputs.cache-soft-timeout
+      - name: Cache save for soft timeout runs
+        uses: actions/cache/save@v3
+        with:
+          path: cache
+          key: ${{ github.event.client_payload.id }}
+
+
