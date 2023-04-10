@@ -50,6 +50,7 @@ jobs:
         run: echo run identifier ${{ github.event.client_payload.id }}
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
+        if: inputs.runs-on == "ubuntu-latest"
         with:
           python-version: ${{ inputs.python-version }}
       - name: Install apt packages
