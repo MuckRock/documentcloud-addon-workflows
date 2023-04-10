@@ -27,6 +27,10 @@ on:
         default: false
         required: false
         type: boolean
+      runs-on:
+        default: "ubuntu-latest"
+        required: false
+        type: string
     secrets:
       dc_username:
         required: false
@@ -39,7 +43,7 @@ on:
 
 jobs:
   Run-Add-On:
-    runs-on: ubuntu-latest
+    runs-on: ${{ inputs.runs-on }}
     timeout-minutes: ${{ inputs.timeout }}
     steps:
       - name: ${{ github.event.client_payload.id }}
