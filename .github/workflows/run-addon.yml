@@ -11,6 +11,10 @@ on:
         default: "3.10"
         required: false
         type: string
+      cache:
+        default: null
+        required: false
+        type: string
       git-commit:
         default: false
         required: false
@@ -53,6 +57,7 @@ jobs:
         if: ${{ inputs.runs-on == 'ubuntu-latest' }}
         with:
           python-version: ${{ inputs.python-version }}
+          cache: ${{ inputs.cache }}
       - name: Install apt packages
         if: inputs.apt-packages != ''
         run: sudo apt-get update && sudo apt-get -y install ${{ inputs.apt-packages }}
