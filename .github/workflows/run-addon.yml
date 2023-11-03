@@ -35,6 +35,10 @@ on:
         default: "ubuntu-latest"
         required: false
         type: string
+      npm-packages:
+        default: ""
+        required: false
+        type: string
     secrets:
       dc_username:
         required: false
@@ -61,6 +65,15 @@ jobs:
       - name: Install apt packages
         if: inputs.apt-packages != ''
         run: sudo apt-get update && sudo apt-get -y install ${{ inputs.apt-packages }}
+      - name: Install node
+        if: inputs.npm-packages != ''
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: npm
+      - name: Install npm packages
+        if: inputs.npm-packages != ''
+        run: npm install -g ${{ inputs.npm-packages }}
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
