@@ -84,7 +84,6 @@ jobs:
       - name: Run add-on
         run: |
           PAYLOAD=$(jq -r ".client_payload" $GITHUB_EVENT_PATH)
-          echo $PAYLOAD
           python main.py "$PAYLOAD"
         env:
           DC_USERNAME: ${{ secrets.dc_username }}
