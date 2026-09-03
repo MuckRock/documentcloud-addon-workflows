@@ -52,8 +52,8 @@ jobs:
     steps:
       - name: ${{ github.event.client_payload.id }}
         run: echo run identifier ${{ github.event.client_payload.id }}
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         if: ${{ inputs.runs-on == 'ubuntu-latest' }}
         with:
           python-version: ${{ inputs.python-version }}
@@ -76,7 +76,7 @@ jobs:
             fi
           done <<< $SECRET
       - name: Cache restore for soft timeout runs
-        uses: actions/cache/restore@v3
+        uses: actions/cache/restore@v6
         if: ${{ github.event.client_payload.payload.data._restore_key != null }}
         with:
           path: cache
@@ -100,7 +100,7 @@ jobs:
           git commit -m "Latest data: ${timestamp}" || exit 0
           git push
       - name: Cache save for soft timeout runs
-        uses: actions/cache/save@v3
+        uses: actions/cache/save@v6
         with:
           path: cache
           key: ${{ github.event.client_payload.id }}
