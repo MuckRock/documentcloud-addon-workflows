@@ -8,7 +8,7 @@ on:
         required: false
         type: number
       python-version:
-        default: "3.10"
+        default: "3.13"
         required: false
         type: string
       cache:
