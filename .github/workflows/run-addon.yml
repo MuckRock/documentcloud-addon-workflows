@@ -71,7 +71,7 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Connect to WireGuard VPN
         if: ${{ env.wg_config != '' }}
-        uses: MuckRock/easy-wireguard-action@main
+        uses: MuckRock/easy-wireguard-action@v1
         with:
           WG_CONFIG_FILE: ${{ env.wg_config }}
       - name: Mask Inputs
