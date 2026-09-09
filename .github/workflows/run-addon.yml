@@ -44,6 +44,8 @@ on:
         required: false
       key:
        required: false
+      wg_config:
+       required: false
 
 jobs:
   Run-Add-On:
@@ -65,6 +67,11 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Connect to WireGuard VPN
+        if: ${{ secrets.wg_config != '' }}
+        uses: MuckRock/easy-wireguard-action@main
+        with:
+          WG_CONFIG_FILE: ${{ secrets.wg_config }}
       - name: Mask Inputs
         if: inputs.mask-inputs
         run: |
