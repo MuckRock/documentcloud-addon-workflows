@@ -51,6 +51,8 @@ jobs:
   Run-Add-On:
     runs-on: ${{ inputs.runs-on }}
     timeout-minutes: ${{ inputs.timeout }}
+    env:
+      wg_config: ${{ secrets.wg_config }}
     steps:
       - name: ${{ github.event.client_payload.id }}
         run: echo run identifier ${{ github.event.client_payload.id }}
@@ -68,10 +70,10 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Connect to WireGuard VPN
-        if: ${{ secrets.wg_config != '' }}
+        if: ${{ env.wg_config != '' }}
         uses: MuckRock/easy-wireguard-action@main
         with:
-          WG_CONFIG_FILE: ${{ secrets.wg_config }}
+          WG_CONFIG_FILE: ${{ env.wg_config }}
       - name: Mask Inputs
         if: inputs.mask-inputs
         run: |
